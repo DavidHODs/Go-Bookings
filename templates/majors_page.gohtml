@@ -1,0 +1,59 @@
+{{template "base" .}} {{define "content"}}
+
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+        <img src="C:/Users/David Olatunji/Desktop/goWEB/static/images/250px-Kelewele.jpg" alt="major" class="img-fluid img-thumbnail mx-auto d-block room-image">
+      </div>
+      </div>
+        <div class="row">
+            <div class="col">
+                <h1 class="text-center mt-4">Majors, welcome to Fort Smythe Bed and Breakfast</h1>
+                <p>Your home away from home...</p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil enim ex aspernatur debitis delectus, perspiciatis accusamus culpa a placeat nisi incidunt nobis sequi commodi voluptatibus aut fuga veniam provident! Quis rem eos enim non in nobis provident saepe earum, sequi ipsam numquam voluptatum, impedit similique quo beatae tempore molestiae? Pariatur, dignissimos voluptates? Ipsa odit optio animi illo modi, ab laborum tenetur. Labore odit autem animi ipsam magni qui provident! Nam iusto labore excepturi cupiditate odio at, beatae voluptatibus quaerat, ducimus nobis officiis exercitationem! Animi maiores a non eos distinctio natus, ut labore mollitia officiis quod totam perspiciatis quidem minima ad, ducimus beatae repellat omnis dicta quas veniam, sit debitis quia. Illo necessitatibus iste dolores ipsa accusantium optio doloribus natus eveniet porro dicta obcaecati officiis sapiente omnis modi delectus officia aliquam velit voluptatum libero quaerat nisi, hic quibusdam sequi fugit? Reprehenderit quisquam sed ullam nihil, culpa libero vero laborum animi nulla nam officia possimus quaerat optio quod eaque consequatur accusantium eligendi, id perspiciatis ad vitae quam harum. Ipsa, ipsum! Vitae voluptas ratione veniam nisi hic recusandae officia alias illum, ab facilis voluptates odio tempora architecto doloremque modi, cumque eius culpa eum quas aliquam et mollitia qui corporis. Nam, culpa. Culpa est velit voluptatum! Autem, fugit, accusantium sunt in consequuntur accusamus veritatis reprehenderit voluptates laudantium quidem voluptatem officiis cumque expedita reiciendis modi et? Omnis, excepturi vitae? Aspernatur ullam eum obcaecati fugiat excepturi, odit, quis vero itaque voluptates repellendus tempora? Quo a, doloribus id nostrum ab dolor aliquid, minima eveniet quidem autem temporibus ipsa? Ut maiores laudantium recusandae soluta! Reprehenderit illo, iure autem fugiat nihil odio aut aliquid fugit aliquam unde aperiam praesentium consectetur non enim cupiditate quasi quia ut harum neque dolorem quibusdam? Deleniti rerum nam consectetur vero similique enim et numquam modi dolore unde fuga beatae alias fugit nostrum, veniam quaerat!</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col text-center">
+            <a id="check-availability-button" href="!#" class=" btn btn-success">Check Availability</a>
+        </div>
+    </div>
+    </div>
+
+    <div class="row my-footer">
+        <div class="col">
+            Left
+        </div>
+        <div class="col">
+            Middle
+        </div>
+        <div class="col">
+            Right
+    </div>
+
+{{end}}
+
+{{define "js"}}
+document.getElementById("check-availability-button").addEventListener("click", function () {
+        let html = `
+        <form id="check-availability-form" action="" method="post" novalidate class="needs-validation">
+          <div class="form-row">
+            <div class="col">
+              <div class="form-row" id="reservation-dates-modal">
+                <div class="col">
+                  <input disabled required class="form-control" type="text" name="start" id="start" placeholder="Arrival">
+                  </div>
+                  <div class="col">
+                  <input disabled required class="form-control" type="text" name="end" id="end" placeholder="Departure">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        `
+        attention.custom({msg: html, title:'Choose your dates'})
+      })
+
+{{end}}
