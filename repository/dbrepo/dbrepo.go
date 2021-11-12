@@ -7,6 +7,7 @@ import (
 	"github.com/DavidHODs/bookings/repository"
 )
 
+
 type postgresDBRepo struct {
 	App *config.AppConfig
 	DB	*sql.DB
