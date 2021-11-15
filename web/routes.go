@@ -33,6 +33,7 @@ func routes(app *config.AppConfig) http.Handler {
 	chi.Get("/search-availability", handlers.Repo.Availability)
 	chi.Post("/search-availability", handlers.Repo.PostAvailability)
 	chi.Post("/search-availability-json", handlers.Repo.AvailabilityJSON)
+	chi.Get("/choose-room/{id}", handlers.Repo.ChooseRoom)
 
 	chi.Get("/contact", handlers.Repo.Contact)
 	
