@@ -21,7 +21,7 @@ import (
 
 var app config.AppConfig
 var session *scs.SessionManager
-var pathToTemplate = "../templates"
+var pathToTemplate = "templates"
 var functions = template.FuncMap{}
 
 func getRoutes() http.Handler {
@@ -54,7 +54,7 @@ func getRoutes() http.Handler {
 	repo := NewRepo(&app)
 	NewHandlers(repo)
 
-	render.NewTemplates(&app)
+	render.NewRenderer(&app)
 
 	chi := chi.NewRouter()
 
