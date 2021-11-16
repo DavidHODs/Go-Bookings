@@ -17,7 +17,7 @@ import (
 var functions = template.FuncMap{}
 
 var app *config.AppConfig
-var pathToTemplate = "templates"
+var pathToTemplate = "../templates"
 // "../templates" 
 
 // AddDefaultData makes preferred data available to all the templates without manually adding them
