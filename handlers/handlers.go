@@ -68,6 +68,21 @@ func (m *Repository) Reservation(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	room, err := m.DB.GetRoomByID(res.RoomID)
+	if err != nil {
+		helpers.ServerError(w, err)
+		return
+	}
+
+	res.Rooms.RoomName = room.RoomName
+
+	sd := res.StartDate.Format("2006-01-02")
+	ed := res.EndDate.Format("2006-01-02")
+
+	stringMap := make(map[string]string)
+	stringMap["start_date"] = sd
+	stringMap["end_date"] = ed
+
 	data := make(map[string]interface{})
 
 	data["reservation"] = res
@@ -75,6 +90,7 @@ func (m *Repository) Reservation(w http.ResponseWriter, r *http.Request) {
 	render.Template(w, r, "make-reservation_page.gohtml", &models.TemplateData{
 		Form: forms.New(nil),
 		Data: data,
+		StringMap: stringMap,
 	})
 }
 
@@ -194,6 +210,18 @@ func (m *Repository) PostAvailability(w http.ResponseWriter, r *http.Request) {
 	endDate, err := time.Parse(layout, ed)
 	if err != nil {
 		helpers.ServerError(w, err)
+		return
+	}
+
+	if startDate != time.Now().Local() {
+		m.App.Session.Put(r.Context(), "error", "arrival date can't be less than current date")
+		http.Redirect(w, r, "/search-availability", http.StatusBadRequest)
+		return
+	}
+
+	if endDate.Before(startDate) {
+		m.App.Session.Put(r.Context(), "error", "departure date can't be less than arrival date")
+		http.Redirect(w, r, "/search-availability", http.StatusBadRequest)
 		return
 	}
 
