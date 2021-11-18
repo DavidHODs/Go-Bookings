@@ -3,6 +3,7 @@ package handlers
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"net/http"
 	"strconv"
 	"time"
@@ -118,7 +119,7 @@ func (m *Repository) PostReservation(w http.ResponseWriter, r *http.Request) {
 	}
 
 	reservation.FirstName = r.Form.Get("first_name")
-	reservation.LastName = r.Form.Get("lasr_name")
+	reservation.LastName = r.Form.Get("last_name")
 	reservation.Phone = r.Form.Get("phone")
 	reservation.Email = r.Form.Get("email")
 
@@ -160,6 +161,40 @@ func (m *Repository) PostReservation(w http.ResponseWriter, r *http.Request) {
 		helpers.ServerError(w, err)
 		return
 	}
+
+	htmlMessage := fmt.Sprintf(`
+		<strong>Reservation Confirmation</strong>
+		<br>
+		Dear %s, <br>
+		This is to confirm your %s reservation from %s to %s.
+	`, reservation.FirstName, reservation.Rooms.RoomName, reservation.StartDate.Format("2006-01-02"), reservation.EndDate.Format("2006-01-02"))
+
+	ownerMessage := fmt.Sprintf(
+		`<strong>Reservation Confirmation</strong>
+		<br>
+		Dear %s, <br>
+		This is to confirm your %s reservation from %s to %s.
+		`, "Owner", reservation.Rooms.RoomName, reservation.StartDate.Format("2006-01-02"), reservation.EndDate.Format("2006-01-02"))
+
+	// send notification to the guest 
+	msg := models.MailData{
+		To:      reservation.Email,
+		From:    "me@here.com",
+		Subject: "Reservation Confirmation",
+		Content: htmlMessage,
+	}
+
+	m.App.MailChan <- msg
+
+	// send notification to property owner 
+	msg = models.MailData{
+		To:      "owner@property.com",
+		From:    "me@here.com",
+		Subject: "Reservation Notification",
+		Content: ownerMessage,
+	}
+
+	m.App.MailChan <- msg
 
 	m.App.Session.Put(r.Context(), "reservation", reservation)
 
