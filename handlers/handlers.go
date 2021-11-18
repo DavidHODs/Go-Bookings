@@ -346,3 +346,10 @@ func(m *Repository) ChooseRoom(w http.ResponseWriter, r *http.Request) {
 
 	http.Redirect(w, r, "/make-reservation", http.StatusSeeOther)
 }
+
+// ShowLogin renders the user login page
+func(m *Repository) ShowLogin(w http.ResponseWriter, r *http.Request) {
+	render.Template(w, r, "login-page.gohtml", &models.TemplateData{
+		Form: forms.New(nil),
+	})
+}
