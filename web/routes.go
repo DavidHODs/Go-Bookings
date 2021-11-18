@@ -38,6 +38,7 @@ func routes(app *config.AppConfig) http.Handler {
 	chi.Get("/contact", handlers.Repo.Contact)
 
 	chi.Get("/user/login", handlers.Repo.ShowLogin)
+	chi.Post("/user/login", handlers.Repo.PostShowLogin)
 	
 	fileServer := http.FileServer(http.Dir("./static/"))
 	chi.Handle("/static/*", http.StripPrefix("/static", fileServer))
