@@ -15,7 +15,7 @@ func routes(app *config.AppConfig) http.Handler {
 
 	// Middlewares
 	chi.Use(middleware.Recoverer)
-	chi.Use(middlewares.WriteToConsole)
+	// chi.Use(middlewares.WriteToConsole)
 	chi.Use(middlewares.NoSurf)
 	chi.Use(app.Session.LoadAndSave)
 
